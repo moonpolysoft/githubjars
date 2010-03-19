@@ -1,0 +1,42 @@
+Github Jars
+=================
+
+Github jars is a simple build tool plugin that pulls in jars from the Github downloads page for a project.
+It defines a new method for declaring a managed dependency from github.
+
+Sample usage:
+
+    import sbt._
+
+    class MyProject(info : ProjectInfo) extends DefaultProject(info) with githubjars.GithubJarsPlugin {
+      val myDependency = github("user", "repository", "jarName", "version")
+    }
+    
+Install
+-----------
+
+1. Build and publish the githubjars plugin project.
+
+        git clone git://github.com/cliffmoon/githubjars
+        cd githubjars
+        sbt update
+        sbt publish-local
+    
+2. Add or edit your plugin definition file in `project/plugins/Plugins.scala`
+
+        import sbt._
+        class Plugins(info: ProjectInfo) extends PluginDefinitions(info) {
+          val githubjars = "moonpolysoft" % "githubjars" % "1.0"
+        }
+
+3. Mixin the GithubJars trait
+
+        import sbt._
+        class MyProject(info : ProjectInfo) extends DefaultProject(info) with githubjars.GithubJarsPlugin {
+          val myDependency = github("user", "repository", "jarName", "version")
+        }
+        
+Planned Features
+-----------------
+
+* A task to publish jars directly to a project's github downloads section from within sbt.
